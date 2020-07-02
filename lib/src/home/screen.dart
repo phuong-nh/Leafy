@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafy_demo/src/widget/card.dart';
+import 'package:leafy_demo/src/card.dart';
 import './../unfinished.dart';
 import './../data/sample.dart';
 
@@ -9,6 +9,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final double pad = 20.0;
+
   Widget welcome() {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 5.0, 0, 0),
@@ -19,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
+                padding: EdgeInsets.fromLTRB(pad, 15, pad, 0),
                 child: Text(
                   'Xin chào,',
                   style: TextStyle(
@@ -31,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.centerLeft,
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 3, 20, 0),
+                padding: EdgeInsets.fromLTRB(pad, 3, pad, 0),
                 child: Text(
                   '$username',
                   style: TextStyle(
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+            margin: EdgeInsets.fromLTRB(0, 0, pad, 0),
             alignment: Alignment.centerLeft,
             child: InkWell(
               child: Container(
@@ -104,9 +106,12 @@ class _HomeScreenState extends State<HomeScreen> {
       //tag: 'HELP',
       //agency: 'HP',
     ),
-    ImageCard(
+  ];
+
+  final List<Widget> _newsCards = <Widget>[
+    InfoCard(
       title: 'Lorem Ipsum',
-      height: 200.0,
+      height: 300.0,
       width: 350.0,
       margin: EdgeInsets.all(7.0),
       radius: 15.0,
@@ -139,6 +144,55 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
             ),
           ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(pad, 20, pad, 10),
+            child: Text(
+              'Công cụ',
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Row(
+              children: <Widget>[
+                ImageCard(
+                  title: 'Tool',
+                  height: 130.0,
+                  width: 110.0,
+                  margin: EdgeInsets.all(7.0),
+                  radius: 15.0,
+                  tagColor: Colors.orange,
+                  primaryColor: Colors.green,
+                  accentColor: Colors.yellow,
+                ),
+                ImageCard(
+                  title: 'Tool',
+                  height: 130.0,
+                  width: 110.0,
+                  margin: EdgeInsets.all(7.0),
+                  radius: 15.0,
+                  tagColor: Colors.orange,
+                  primaryColor: Colors.green,
+                  accentColor: Colors.yellow,
+                ),
+                ImageCard(
+                  title: 'Tool',
+                  height: 130.0,
+                  width: 110.0,
+                  margin: EdgeInsets.all(7.0),
+                  radius: 15.0,
+                  tagColor: Colors.orange,
+                  primaryColor: Colors.green,
+                  accentColor: Colors.yellow,
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            ),
+          )
         ],
       ),
     );

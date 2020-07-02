@@ -27,6 +27,7 @@ class _MainState extends State<Main> {
   int _selectedIndex = 0;
   final TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  //static HomeScreen test;
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     Unfinished(),
@@ -34,10 +35,29 @@ class _MainState extends State<Main> {
     Unfinished(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  Widget _navigationBarItem(int _index, IconData _icon) {
+    Color _itemColor =
+        _selectedIndex == _index - 1 ? Colors.green[600] : Colors.black87;
+    return Expanded(
+      child: Material(
+        type: MaterialType.transparency,
+        child: IconButton(
+          icon: Icon(
+            _icon,
+            color: _itemColor,
+          ),
+          onPressed: () {
+            setState(() {
+              _selectedIndex = _index - 1;
+            });
+            print("[Bottom Navigation Bar] Tab $_index pressed");
+          },
+          iconSize: 30.0,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+      ),
+    );
   }
 
   @override
@@ -46,32 +66,20 @@ class _MainState extends State<Main> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        iconSize: 32.0,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('X'),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 60.0,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 5.0),
+              _navigationBarItem(1, Icons.home),
+              _navigationBarItem(2, Icons.calendar_view_day),
+              _navigationBarItem(3, Icons.indeterminate_check_box),
+              _navigationBarItem(4, Icons.person),
+              SizedBox(width: 5.0),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_view_day),
-            title: Text('X'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.indeterminate_check_box),
-            title: Text('X'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('X'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green[600],
-        unselectedItemColor: Colors.black87,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

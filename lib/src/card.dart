@@ -192,6 +192,7 @@ class InfoCard extends StatelessWidget {
   DateTime time;
   EdgeInsets margin;
   double height, radius, width;
+  bool shadow;
 
   InfoCard({
     this.title,
@@ -206,68 +207,66 @@ class InfoCard extends StatelessWidget {
     this.radius,
     this.height,
     this.width,
+    this.shadow,
   });
 
   Widget tagDisplay() {
-    if (tag != null)
-      return Container(
-        padding: EdgeInsets.fromLTRB(10, 3, 10, 3),
-        height: 22.0,
-        child: Text(
-          "$tag",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-          ),
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 3, 10, 3),
+      height: 22.0,
+      child: Text(
+        "$tag",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14.0,
+          fontWeight: FontWeight.bold,
         ),
-        decoration: BoxDecoration(
-          color: tagColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(13),
-              topRight: Radius.circular(13),
-              bottomLeft: Radius.circular(13),
-              bottomRight: Radius.circular(13)),
-        ),
-      );
+      ),
+      decoration: BoxDecoration(
+        color: tagColor,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
+            bottomLeft: Radius.circular(13),
+            bottomRight: Radius.circular(13)),
+      ),
+    );
   }
 
   Widget timeDisplay() {
-    if (time != null)
-      return Container(
-        alignment: Alignment.centerLeft,
-        margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
-        child: Text(
-          "$time",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-          ),
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+      child: Text(
+        "$time",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14.0,
+          fontWeight: FontWeight.bold,
         ),
-      );
+      ),
+    );
   }
 
   Widget agencyDisplay() {
-    if (agency != null)
-      return Container(
-        alignment: Alignment.centerLeft,
-        margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
-        child: Text(
-          "$agency",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-          ),
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
+      child: Text(
+        "$agency",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14.0,
+          fontWeight: FontWeight.bold,
         ),
-      );
+      ),
+    );
   }
 
   Widget imageDisplay() {
     if (image != null)
       return Container(
-        height: height,
+        height: height / 3 * 2,
         width: width,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -276,10 +275,9 @@ class InfoCard extends StatelessWidget {
           ),
           color: primaryColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(radius),
-              topRight: Radius.circular(radius),
-              bottomLeft: Radius.circular(radius),
-              bottomRight: Radius.circular(radius)),
+            topLeft: Radius.circular(radius),
+            topRight: Radius.circular(radius),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
@@ -292,23 +290,14 @@ class InfoCard extends StatelessWidget {
       );
     else
       return Container(
-        height: height,
+        height: height / 3 * 2,
         width: width,
         decoration: BoxDecoration(
           color: primaryColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(radius),
-              topRight: Radius.circular(radius),
-              bottomLeft: Radius.circular(radius),
-              bottomRight: Radius.circular(radius)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 0), // changes position of shadow
-            ),
-          ],
+            topLeft: Radius.circular(radius),
+            topRight: Radius.circular(radius),
+          ),
         ),
       );
   }
@@ -320,74 +309,49 @@ class InfoCard extends StatelessWidget {
       child: InkWell(
         child: Column(
           children: <Widget>[
+            imageDisplay(),
             Container(
-              height: height,
-              width: width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                ),
-                color: primaryColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(radius),
-                    topRight: Radius.circular(radius),
-                    bottomLeft: Radius.circular(radius),
-                    bottomRight: Radius.circular(radius)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 0), // changes position of shadow
-                  ),
-                ],
-              ),
-            ),
-            Container(
+              //color: accentColor,
               alignment: Alignment.bottomLeft,
-              height: height,
+              height: height / 3,
               width: width,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, accentColor],
-                ),
-                color: primaryColor,
+                color: accentColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(radius),
-                  topRight: Radius.circular(radius),
                   bottomLeft: Radius.circular(radius),
                   bottomRight: Radius.circular(radius),
                 ),
                 boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 0), // changes position of shadow
-                  ),
+                  if (shadow == true)
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 0), // changes position of shadow
+                    ),
                 ],
               ),
-              padding: EdgeInsets.fromLTRB(20, 15, 20, 10),
+              padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: ((tag != null)
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.end),
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  tagDisplay(),
+                  if (tag != null) tagDisplay(),
                   Column(
                     children: <Widget>[
-                      Text(
-                        "$title",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
+                      if (title != null)
+                        Text(
+                          "$title",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      agencyDisplay(),
-                      timeDisplay(),
+                      if (agency != null) agencyDisplay(),
+                      if (time != null) timeDisplay(),
                     ],
                   ),
                 ],
