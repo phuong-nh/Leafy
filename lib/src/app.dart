@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:leafy_demo/src/test.dart';
+import 'package:leafy_demo/src/home/screen.dart';
+import 'package:leafy_demo/src/unfinished.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,55 +25,53 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> {
   int _selectedIndex = 0;
-
-  Widget _navigationBarItem(int _index, IconData _icon) {
-    Color _itemColor =
-        _selectedIndex == _index - 1 ? Colors.green[600] : Colors.black87;
-    return Expanded(
-      child: Material(
-        type: MaterialType.transparency,
-        child: IconButton(
-          icon: Icon(
-            _icon,
-            color: _itemColor,
-          ),
-          onPressed: () {
-            setState(() {
-              _selectedIndex = _index - 1;
-            });
-            print("[Bottom Navigation Bar] Tab $_index pressed");
-          },
-          iconSize: 30.0,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-      ),
-    );
-  }
-
+  final TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    Unfinished(),
+    HomeScreen(),
     Unfinished(),
     Unfinished(),
     Unfinished(),
   ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: _widgetOptions[_selectedIndex]),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 60.0,
-          child: Row(
-            children: <Widget>[
-              _navigationBarItem(1, Icons.home),
-              _navigationBarItem(2, Icons.format_align_justify),
-              _navigationBarItem(3, Icons.assessment),
-              _navigationBarItem(4, Icons.check_box_outline_blank),
-            ],
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 32.0,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('X'),
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_view_day),
+            title: Text('X'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.indeterminate_check_box),
+            title: Text('X'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('X'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green[600],
+        unselectedItemColor: Colors.black87,
+        onTap: _onItemTapped,
       ),
     );
   }
