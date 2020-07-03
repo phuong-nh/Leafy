@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../unfinished.dart';
+import './page.dart';
 import '../unfinished.dart';
 
 class ImageCard extends StatelessWidget {
-  String title, tag, agency, image;
+  String title, tag, agency, image, type;
   Color tagColor, primaryColor, accentColor, textColor;
   DateTime time;
   EdgeInsets margin;
@@ -26,6 +25,7 @@ class ImageCard extends StatelessWidget {
     this.width,
     this.shadow,
     this.textColor,
+    this.type,
   });
 
   Widget tagDisplay() {
@@ -186,7 +186,7 @@ class ImageCard extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.of(context).push(_createRoute());
+          Navigator.of(context).push(_createRoute(type));
         },
       ),
     );
@@ -194,29 +194,29 @@ class ImageCard extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  String title, tag, agency, image;
+  String title, tag, agency, image, type;
   Color tagColor, primaryColor, accentColor, textColor;
   DateTime time;
   EdgeInsets margin;
   double height, radius, width;
   bool shadow;
 
-  InfoCard({
-    this.title,
-    this.tag,
-    this.agency,
-    this.image,
-    this.tagColor,
-    this.primaryColor,
-    this.accentColor,
-    this.time,
-    this.margin,
-    this.radius,
-    this.height,
-    this.width,
-    this.shadow,
-    this.textColor,
-  });
+  InfoCard(
+      {this.title,
+      this.tag,
+      this.agency,
+      this.image,
+      this.tagColor,
+      this.primaryColor,
+      this.accentColor,
+      this.time,
+      this.margin,
+      this.radius,
+      this.height,
+      this.width,
+      this.shadow,
+      this.textColor,
+      this.type});
 
   Widget tagDisplay() {
     return Container(
@@ -368,16 +368,17 @@ class InfoCard extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.of(context).push(_createRoute());
+          Navigator.of(context).push(_createRoute(type));
         },
       ),
     );
   }
 }
 
-Route _createRoute() {
+Route _createRoute(String type) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => Unfinished(),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        (type == 'Event') ? EventPage() : NewsPage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(0.0, 1.0);
       var end = Offset.zero;

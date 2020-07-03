@@ -1,5 +1,6 @@
-class Event {
-  String title, tag, agency, image;
+class EventData {
+  String title, type, agency, image, description, location, venue;
+  List<String> update;
   DateTime time;
-  int remain;
+  int availability;
 }

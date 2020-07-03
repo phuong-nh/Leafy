@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-              SizedBox(height: 35.0),
+              SizedBox(height: 0.0),
               welcome(),
               SizedBox(height: 15.0),
               SingleChildScrollView(
