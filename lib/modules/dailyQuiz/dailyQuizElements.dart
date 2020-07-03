@@ -4,10 +4,12 @@ import 'dailyQuizData.dart';
 class QuizLoaderPage extends StatefulWidget {
   QuizLoaderPage({
     this.quizData,
+    this.quizAnswered,
   });
   final QuizData quizData;
+  final bool quizAnswered;
   @override
-  _QuizLoaderPageState createState() => _QuizLoaderPageState(quizData: quizData, quizAnswered: false);
+  _QuizLoaderPageState createState() => _QuizLoaderPageState(quizData: quizData, quizAnswered: quizAnswered);
 }
 
 class _QuizLoaderPageState extends State<QuizLoaderPage> {
@@ -24,7 +26,8 @@ class _QuizLoaderPageState extends State<QuizLoaderPage> {
     if (!quizAnswered) {
       quizAnswerList = quizData.quizAnswers;
       for (int _i = 0; _i < quizData.getQuizAnswerCount(); _i++) {
-        quizAnswerCardState.add('Unanswered');
+        quizAnswerCardState.add('');
+        quizAnswerCardState[_i] = 'Unanswered';
       }
     }
     return Scaffold(
@@ -54,13 +57,28 @@ class _QuizLoaderPageState extends State<QuizLoaderPage> {
               onNotification: (notification) {
                 if (!quizAnswered) {
                   quizAnswered = true;
-                  setState(() {
-                    for (int _i = 0; _i < quizData.getQuizAnswerCount(); _i++) {
-                      quizAnswerCardState[_i] = (notification.selectedAnswer == quizAnswerList[_i].getQuizAnswerID()) ? 'Selected' : 'Unselected';
-                    }
-                  });
+                  for (int _i = 0; _i < quizData.getQuizAnswerCount(); _i++) {
+                    quizAnswerCardState[_i] = (notification.selectedAnswer == quizAnswerList[_i].getQuizAnswerID()) ? 'Selected' : 'Unselected';
+                  }
+                  setState(() {});
                 }
                 return true;
+              },
+            ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                if (quizAnswered) {
+                  return Text(quizData.getQuizAdditionalInformation(), style: Theme.of(context).textTheme.headline5,);
+                }
+                return Container();
+              },
+            ),
+            FlatButton(
+              child: Text('Back'),
+              onPressed: () {
+                quizAnswered = false;
+                quizAnswerCardState.clear();
+                Navigator.pop(context);
               },
             ),
           ],

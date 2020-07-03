@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 double _quizPagePadding = 20;
 
@@ -20,19 +21,23 @@ class QuizAnswerData {
     this.quizAnswerID,
   });
   String quizAnswer;
-  bool quizAnswerCorrectness;
+  bool quizAnswerCorrectness = false;
   int quizAnswerID;
   Color _answerCardBackgroundColor = Colors.white;
   Color _answerCardFilterBlendColor = Colors.transparent;
   Widget getAnswerCard(String cardMode, BuildContext context) {
     if ((cardMode != 'Unanswered') && (!quizAnswerCorrectness)) {
-      _answerCardFilterBlendColor = Colors.grey;
+      _answerCardFilterBlendColor = Colors.transparent;
     }
     if (cardMode == 'Selected') {
       _answerCardBackgroundColor = quizAnswerCorrectness ? Colors.green : Colors.red;
     }
     if ((cardMode != 'Unanswered') && (quizAnswerCorrectness)) {
       _answerCardBackgroundColor = Colors.green;
+    }
+    if (cardMode == 'Unanswered') {
+      _answerCardBackgroundColor = Colors.white;
+      _answerCardFilterBlendColor = Colors.transparent;
     }
     return Card(
       child: ColorFiltered(
@@ -68,7 +73,7 @@ class QuizData {
   }
   List<QuizAnswerData> getQuizAnswers() {
     List<QuizAnswerData> _temp = quizAnswers;
-    _temp.shuffle();
+    _temp..shuffle();
     return _temp;
   }
   int getQuizAnswerCount() {
@@ -79,6 +84,7 @@ class QuizData {
 List<QuizData> _quizDatabase = new List();
 
 void quizDatabaseGenerator() {
+  _quizDatabase.clear();
   int _indexer = 0;
   _quizDatabase.add(QuizData(
     quizQuestion: 'COVID-?',
@@ -106,8 +112,49 @@ void quizDatabaseGenerator() {
       ),
     ],
   ));
+  _indexer = 0;
+  _quizDatabase.add(QuizData(
+    quizQuestion: 'Cover your mouth with?',
+    quizAdditionalInformation: 'Shut up Karen',
+    quizAnswers: <QuizAnswerData>[
+      QuizAnswerData(
+        quizAnswer: 'Clothes',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Underwear',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Mask',
+        quizAnswerCorrectness: true,
+        quizAnswerID: ++_indexer,
+      ),
+    ],
+  ));
+  _indexer = 0;
+  _quizDatabase.add(QuizData(
+    quizQuestion: 'Greta Thunberg helped improve the environment',
+    quizAdditionalInformation: 'Politically abused',
+    quizAnswers: <QuizAnswerData>[
+      QuizAnswerData(
+        quizAnswer: 'True',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'False',
+        quizAnswerCorrectness: true,
+        quizAnswerID: ++_indexer,
+      ),
+    ],
+  ));
+  _indexer = 0;
 }
 
 QuizData getSingleRandomQuizData() {
-  return _quizDatabase[0];
+  return _quizDatabase[Random().nextInt(_quizDatabase.length)];
+  //return _quizDatabase[1];
 }
