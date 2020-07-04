@@ -216,7 +216,7 @@ class _EventPageState extends State<EventPage> {
   List<String> update;
   int availability;
   double price, pad = 20;
-  Color primaryColor, accentColor = Colors.green[600];
+  Color primaryColor, accentColor = Colors.orange[600];
   Color liked = Colors.white;
   DateTime time;
 
