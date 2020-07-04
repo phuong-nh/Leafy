@@ -30,7 +30,8 @@ class QuizAnswerData {
       _answerCardFilterBlendColor = Colors.transparent;
     }
     if (cardMode == 'Selected') {
-      _answerCardBackgroundColor = quizAnswerCorrectness ? Colors.green : Colors.red;
+      _answerCardBackgroundColor =
+          quizAnswerCorrectness ? Colors.green : Colors.red;
     }
     if ((cardMode != 'Unanswered') && (quizAnswerCorrectness)) {
       _answerCardBackgroundColor = Colors.green;
@@ -41,16 +42,26 @@ class QuizAnswerData {
     }
     return Card(
       child: ColorFiltered(
-        colorFilter: ColorFilter.mode(_answerCardFilterBlendColor, BlendMode.color),
+        colorFilter:
+            ColorFilter.mode(_answerCardFilterBlendColor, BlendMode.color),
         child: ListTile(
-          title: Text(quizAnswer, style: Theme.of(context).textTheme.headline5,),
-          onTap: () => QuizAnsweredNotification(selectedAnswer: quizAnswerID)..dispatch(context),
+          title: Text(
+            quizAnswer,
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          onTap: () => QuizAnsweredNotification(selectedAnswer: quizAnswerID)
+            ..dispatch(context),
         ),
       ),
       color: _answerCardBackgroundColor,
       elevation: 8,
+      shadowColor: Colors.black38,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
     );
   }
+
   int getQuizAnswerID() {
     return quizAnswerID;
   }
@@ -68,14 +79,17 @@ class QuizData {
   String getQuizQuestion() {
     return quizQuestion;
   }
+
   String getQuizAdditionalInformation() {
     return quizAdditionalInformation;
   }
+
   List<QuizAnswerData> getQuizAnswers() {
     List<QuizAnswerData> _temp = quizAnswers;
     _temp..shuffle();
     return _temp;
   }
+
   int getQuizAnswerCount() {
     return quizAnswers.length;
   }

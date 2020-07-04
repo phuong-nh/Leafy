@@ -16,11 +16,8 @@ class RecycleMapInterface extends StatelessWidget {
                 'What do you want to recycle?',
                 style: Theme.of(context).textTheme.headline3,
               ),
-              padding: EdgeInsets.fromLTRB(
-                  getRecycleMapEdgePadding(),
-                  getRecycleMapEdgePadding() + 20,
-                  getRecycleMapEdgePadding(),
-                  0),
+              padding: EdgeInsets.fromLTRB(getRecycleMapEdgePadding(),
+                  getRecycleMapEdgePadding(), getRecycleMapEdgePadding(), 0),
             ),
             //RecycleMapCard(cardData: getRecycleMapCardData(0),),
             Expanded(
@@ -29,8 +26,8 @@ class RecycleMapInterface extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1.25,
-                  crossAxisSpacing: getRecycleMapEdgePadding(),
-                  mainAxisSpacing: getRecycleMapEdgePadding(),
+                  crossAxisSpacing: getRecycleMapEdgePadding() / 2,
+                  mainAxisSpacing: getRecycleMapEdgePadding() / 2,
                 ),
                 itemBuilder: (BuildContext context, int _index) {
                   return RecycleMapCard(

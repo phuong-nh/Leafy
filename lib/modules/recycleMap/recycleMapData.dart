@@ -15,7 +15,11 @@ class RecycleMapPointData {
   String pointDescription;
   Widget getPointDataCard() {
     return Card(
-      elevation: getRecycleMapEdgePadding() / 2,
+      elevation: 8,
+      shadowColor: Colors.black38,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
       child: ListTile(
         title: Text(pointName),
         subtitle: Text(pointDescription),
@@ -33,8 +37,14 @@ class _RecycleMapPointListData {
     return Expanded(
       child: ListView.builder(
         itemCount: pointList.length,
-        itemBuilder: (BuildContext context, int _index) =>
-          pointList[_index].getPointDataCard(),
+        itemBuilder: (BuildContext context, int _index) => Column(
+          children: <Widget>[
+            pointList[_index].getPointDataCard(),
+            SizedBox(
+              height: 8,
+            ),
+          ],
+        ),
       ),
     );
     //return pointList[0].getPointDataCard();
@@ -52,24 +62,35 @@ class RecycleMapCardData {
   _RecycleMapPointListData cardDataPointList;
   Widget getTitle(BuildContext context) {
     return Container(
-      child: Text(cardTitle, style: Theme.of(context).textTheme.headline5,),
+      child: Text(
+        cardTitle,
+        style: Theme.of(context).textTheme.headline5,
+      ),
       alignment: Alignment.center,
       height: 50,
     );
   }
+
   Widget getImage() {
-    return Expanded(child: Image.asset(cardImageDir,
-      fit: BoxFit.fitHeight,
-    ),);
+    return Expanded(
+      child: Image.asset(
+        cardImageDir,
+        fit: BoxFit.fitHeight,
+      ),
+    );
   }
+
   Widget getUnexpandedImage() {
-    return Image.asset(cardImageDir,
+    return Image.asset(
+      cardImageDir,
       fit: BoxFit.fitHeight,
     );
   }
+
   String getTitleString() {
     return cardTitle;
   }
+
   Widget getPointListDataList() {
     return cardDataPointList._getPointListData();
   }
@@ -81,7 +102,8 @@ int recycleMapCardDatabaseGenerator() {
   recycleMapCardDatabase.add(RecycleMapCardData(
     cardTitle: 'Item #1',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList:
+        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
         pointName: 'Ngung Bich Tower',
         pointDescription: 'You can find Kieu here',
@@ -95,7 +117,8 @@ int recycleMapCardDatabaseGenerator() {
   recycleMapCardDatabase.add(RecycleMapCardData(
     cardTitle: 'Item #2',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList:
+        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
         pointName: 'America',
         pointDescription: 'Get your guns ready',
@@ -105,7 +128,8 @@ int recycleMapCardDatabaseGenerator() {
   recycleMapCardDatabase.add(RecycleMapCardData(
     cardTitle: 'Item #3',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList:
+        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
         pointName: 'America',
         pointDescription: 'Get your guns ready',
@@ -115,7 +139,8 @@ int recycleMapCardDatabaseGenerator() {
   recycleMapCardDatabase.add(RecycleMapCardData(
     cardTitle: 'Item #4',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList:
+        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
         pointName: 'America',
         pointDescription: 'Get your guns ready',
@@ -124,6 +149,7 @@ int recycleMapCardDatabaseGenerator() {
   ));
   return 4;
 }
+
 RecycleMapCardData getRecycleMapCardData(int _index) {
   return recycleMapCardDatabase[_index];
 }

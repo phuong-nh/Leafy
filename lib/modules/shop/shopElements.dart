@@ -17,18 +17,30 @@ class ShopItemCard extends StatelessWidget {
               child: itemData.getImage(),
             ),
             Align(
-              child: Text(itemData.getName(), style: Theme.of(context).textTheme.headline5,),
+              child: Text(
+                itemData.getName(),
+                style: Theme.of(context).textTheme.headline5,
+              ),
               alignment: Alignment.topLeft,
             ),
-            SizedBox(height: 4,),
+            SizedBox(
+              height: 4,
+            ),
             Align(
-              child: Text(itemData.getPrice().toString() + ' VND', style: Theme.of(context).textTheme.headline6,),
+              child: Text(
+                itemData.getPrice().toString() + ' VND',
+                style: Theme.of(context).textTheme.headline6,
+              ),
               alignment: Alignment.bottomRight,
             ),
           ],
         ),
       ),
       elevation: 8,
+      shadowColor: Colors.black38,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+      ),
     );
   }
 }

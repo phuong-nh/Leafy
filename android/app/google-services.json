@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "111889634866",
+    "firebase_url": "https://hoc-leafy.firebaseio.com",
+    "project_id": "hoc-leafy",
+    "storage_bucket": "hoc-leafy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111889634866:android:71492fed35a58128ab0e2b",
+        "android_client_info": {
+          "package_name": "com.highoncaffeine.leafy_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "111889634866-p206abr8068sduoijmeh6agb7evertvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_jTUt0Zpn8hi3-lpPgKuqlHsIhkraLeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "111889634866-p206abr8068sduoijmeh6agb7evertvk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
