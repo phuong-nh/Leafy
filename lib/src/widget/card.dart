@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import './page.dart';
+import '../unfinished.dart';
 
 class ImageCard extends StatelessWidget {
-  String title, tag, agency, image;
-  Color tagColor, primaryColor, accentColor;
+  String title, tag, agency, image, type;
+  Color tagColor, primaryColor, accentColor, textColor;
   DateTime time;
   EdgeInsets margin;
   double height, radius, width;
@@ -22,6 +24,8 @@ class ImageCard extends StatelessWidget {
     this.height,
     this.width,
     this.shadow,
+    this.textColor,
+    this.type,
   });
 
   Widget tagDisplay() {
@@ -54,7 +58,7 @@ class ImageCard extends StatelessWidget {
       child: Text(
         "$time",
         style: TextStyle(
-          color: Colors.white,
+          color: textColor,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -69,7 +73,7 @@ class ImageCard extends StatelessWidget {
       child: Text(
         "$agency",
         style: TextStyle(
-          color: Colors.white,
+          color: textColor,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -167,7 +171,7 @@ class ImageCard extends StatelessWidget {
                         Text(
                           "$title",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: textColor,
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -181,34 +185,38 @@ class ImageCard extends StatelessWidget {
             ),
           ],
         ),
+        onTap: () {
+          Navigator.of(context).push(_createRoute(type));
+        },
       ),
     );
   }
 }
 
 class InfoCard extends StatelessWidget {
-  String title, tag, agency, image;
-  Color tagColor, primaryColor, accentColor;
+  String title, tag, agency, image, type;
+  Color tagColor, primaryColor, accentColor, textColor;
   DateTime time;
   EdgeInsets margin;
   double height, radius, width;
   bool shadow;
 
-  InfoCard({
-    this.title,
-    this.tag,
-    this.agency,
-    this.image,
-    this.tagColor,
-    this.primaryColor,
-    this.accentColor,
-    this.time,
-    this.margin,
-    this.radius,
-    this.height,
-    this.width,
-    this.shadow,
-  });
+  InfoCard(
+      {this.title,
+      this.tag,
+      this.agency,
+      this.image,
+      this.tagColor,
+      this.primaryColor,
+      this.accentColor,
+      this.time,
+      this.margin,
+      this.radius,
+      this.height,
+      this.width,
+      this.shadow,
+      this.textColor,
+      this.type});
 
   Widget tagDisplay() {
     return Container(
@@ -240,7 +248,7 @@ class InfoCard extends StatelessWidget {
       child: Text(
         "$time",
         style: TextStyle(
-          color: Colors.white,
+          color: textColor,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -255,7 +263,7 @@ class InfoCard extends StatelessWidget {
       child: Text(
         "$agency",
         style: TextStyle(
-          color: Colors.white,
+          color: textColor,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -290,7 +298,7 @@ class InfoCard extends StatelessWidget {
       );
     else
       return Container(
-        height: height / 3 * 2,
+        height: height / 5 * 3,
         width: width,
         decoration: BoxDecoration(
           color: primaryColor,
@@ -313,7 +321,7 @@ class InfoCard extends StatelessWidget {
             Container(
               //color: accentColor,
               alignment: Alignment.bottomLeft,
-              height: height / 3,
+              height: height / 5 * 2,
               width: width,
               decoration: BoxDecoration(
                 color: accentColor,
@@ -345,7 +353,7 @@ class InfoCard extends StatelessWidget {
                         Text(
                           "$title",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: textColor,
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -359,7 +367,27 @@ class InfoCard extends StatelessWidget {
             ),
           ],
         ),
+        onTap: () {
+          Navigator.of(context).push(_createRoute(type));
+        },
       ),
     );
   }
+}
+
+Route _createRoute(String type) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        (type == 'Event') ? EventPage() : NewsPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

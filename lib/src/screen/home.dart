@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leafy_demo/src/card.dart';
+import 'package:leafy_demo/src/widget/card.dart';
 import './../unfinished.dart';
 import './../data/sample.dart';
 
@@ -89,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       tagColor: Colors.orange,
       primaryColor: Colors.green,
       accentColor: Colors.yellow,
+      textColor: Colors.white,
       //image: 'none',
       //tag: 'HELP',
       //agency: 'HP',
@@ -102,6 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
       tagColor: Colors.orange,
       primaryColor: Colors.green,
       accentColor: Colors.yellow,
+      textColor: Colors.white,
       //image: 'none',
       //tag: 'HELP',
       //agency: 'HP',
@@ -111,13 +113,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _newsCards = <Widget>[
     InfoCard(
       title: 'Lorem Ipsum',
-      height: 300.0,
-      width: 350.0,
-      margin: EdgeInsets.all(7.0),
+      tag: 'ORANGE',
+      height: 270.0,
+      width: double.infinity,
+      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
       radius: 15.0,
       tagColor: Colors.orange,
       primaryColor: Colors.green,
-      accentColor: Colors.yellow,
+      accentColor: Colors.white,
+      textColor: Colors.black,
+      shadow: true,
       //image: 'none',
       //tag: 'HELP',
       //agency: 'HP',
@@ -130,70 +135,89 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          welcome(),
-          SizedBox(height: 15.0),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: <Widget>[
-                    SizedBox(width: 10),
-                  ] +
-                  _highlightCards +
-                  <Widget>[
-                    SizedBox(width: 10),
-                  ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(pad, 20, pad, 10),
-            child: Text(
-              'Công cụ',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 0.0),
+              welcome(),
+              SizedBox(height: 15.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: <Widget>[
+                        SizedBox(width: 10),
+                      ] +
+                      _highlightCards +
+                      <Widget>[
+                        SizedBox(width: 10),
+                      ],
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
-              children: <Widget>[
-                ImageCard(
-                  title: 'Tool',
-                  height: 130.0,
-                  width: 110.0,
-                  margin: EdgeInsets.all(7.0),
-                  radius: 15.0,
-                  tagColor: Colors.orange,
-                  primaryColor: Colors.green,
-                  accentColor: Colors.yellow,
+              Padding(
+                padding: EdgeInsets.fromLTRB(pad, 20, pad, 10),
+                child: Text(
+                  'Công cụ',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                ImageCard(
-                  title: 'Tool',
-                  height: 130.0,
-                  width: 110.0,
-                  margin: EdgeInsets.all(7.0),
-                  radius: 15.0,
-                  tagColor: Colors.orange,
-                  primaryColor: Colors.green,
-                  accentColor: Colors.yellow,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Row(
+                  children: <Widget>[
+                    ImageCard(
+                      title: 'Tool',
+                      height: 130.0,
+                      width: 110.0,
+                      margin: EdgeInsets.all(7.0),
+                      radius: 15.0,
+                      tagColor: Colors.orange,
+                      primaryColor: Colors.green,
+                      accentColor: Colors.yellow,
+                      textColor: Colors.white,
+                    ),
+                    ImageCard(
+                      title: 'Tool',
+                      height: 130.0,
+                      width: 110.0,
+                      margin: EdgeInsets.all(7.0),
+                      radius: 15.0,
+                      tagColor: Colors.orange,
+                      primaryColor: Colors.green,
+                      accentColor: Colors.yellow,
+                      textColor: Colors.white,
+                    ),
+                    ImageCard(
+                      title: 'Tool',
+                      height: 130.0,
+                      width: 110.0,
+                      margin: EdgeInsets.all(7.0),
+                      radius: 15.0,
+                      tagColor: Colors.orange,
+                      primaryColor: Colors.green,
+                      accentColor: Colors.yellow,
+                      textColor: Colors.white,
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 ),
-                ImageCard(
-                  title: 'Tool',
-                  height: 130.0,
-                  width: 110.0,
-                  margin: EdgeInsets.all(7.0),
-                  radius: 15.0,
-                  tagColor: Colors.orange,
-                  primaryColor: Colors.green,
-                  accentColor: Colors.yellow,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(pad, 20, pad, 5),
+                child: Text(
+                  'Thông tin',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            ),
-          )
-        ],
+              ),
+            ] +
+            _newsCards +
+            [
+              SizedBox(height: 35.0),
+            ],
       ),
     );
   }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:leafy_demo/src/home/screen.dart';
+import 'package:leafy_demo/src/screen/daily.dart';
+import 'package:leafy_demo/src/screen/event.dart';
+import 'package:leafy_demo/src/screen/home.dart';
+import 'package:leafy_demo/src/screen/menu.dart';
 import 'package:leafy_demo/src/unfinished.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,7 +16,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.green,
         textTheme: TextTheme(bodyText2: TextStyle(color: Colors.purple)),
       ),
-      home: Main(),
+      home: SafeArea(child: Main()),
     );
   }
 }
@@ -30,9 +34,9 @@ class _MainState extends State<Main> {
   //static HomeScreen test;
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    Unfinished(),
-    Unfinished(),
-    Unfinished(),
+    EventScreen(),
+    Daily(),
+    Extra(),
   ];
 
   Widget _navigationBarItem(int _index, IconData _icon) {
@@ -52,7 +56,7 @@ class _MainState extends State<Main> {
             });
             print("[Bottom Navigation Bar] Tab $_index pressed");
           },
-          iconSize: 30.0,
+          iconSize: 35.0,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
         ),
@@ -72,10 +76,10 @@ class _MainState extends State<Main> {
           child: Row(
             children: <Widget>[
               SizedBox(width: 5.0),
-              _navigationBarItem(1, Icons.home),
-              _navigationBarItem(2, Icons.calendar_view_day),
-              _navigationBarItem(3, Icons.indeterminate_check_box),
-              _navigationBarItem(4, Icons.person),
+              _navigationBarItem(1, Foundation.home),
+              _navigationBarItem(2, Foundation.calendar),
+              _navigationBarItem(3, Foundation.checkbox),
+              _navigationBarItem(4, Foundation.thumbnails),
               SizedBox(width: 5.0),
             ],
           ),
