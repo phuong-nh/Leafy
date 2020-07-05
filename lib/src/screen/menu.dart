@@ -78,8 +78,8 @@ class Extra extends StatelessWidget {
                           'Lorem Ipsum',
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.normal,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -117,8 +117,8 @@ class Extra extends StatelessWidget {
                           'Lorem Ipsum',
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.normal,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -156,8 +156,8 @@ class Extra extends StatelessWidget {
                           'Lorem Ipsum',
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.normal,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -195,8 +195,8 @@ class Extra extends StatelessWidget {
                           'Lorem Ipsum',
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.normal,
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

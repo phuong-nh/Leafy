@@ -5,8 +5,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:leafy_demo/src/unfinished.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
+import 'package:flutter_html/style.dart';
+import './../widget/column_builder.dart';
 
 class NewsPage extends StatefulWidget {
+  DocumentSnapshot document;
+
+  NewsPage(this.document);
+
   @override
   _NewsPageState createState() => _NewsPageState();
 }
@@ -24,7 +33,7 @@ class _NewsPageState extends State<NewsPage> {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(image),
+              image: NetworkImage(widget.document['image']),
               fit: BoxFit.cover,
             ),
             boxShadow: [
@@ -155,7 +164,7 @@ class _NewsPageState extends State<NewsPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              (image != null) ? headRow() : noImage(),
+              (widget.document['image'] != '') ? headRow() : noImage(),
               SizedBox(
                 height: 20.0,
               ),
@@ -163,7 +172,7 @@ class _NewsPageState extends State<NewsPage> {
                 padding: EdgeInsets.fromLTRB(pad, 0, pad, 0),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "$title",
+                  widget.document['title'],
                   style: TextStyle(
                     color: Colors.black87,
                     fontSize: 28.0,
@@ -172,23 +181,8 @@ class _NewsPageState extends State<NewsPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(pad, 20, pad, 30),
-                child: FutureBuilder(
-                    future: rootBundle.loadString("assets/fake_UI/flutter.md"),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<String> snapshot) {
-                      if (snapshot.hasData) {
-                        return MarkdownBody(
-                          styleSheet:
-                              MarkdownStyleSheet.fromTheme(Theme.of(context))
-                                  .copyWith(textScaleFactor: 1.2),
-                          data: snapshot.data,
-                        );
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }),
+                padding: EdgeInsets.all(10),
+                child: Html(data: widget.document['html']),
               ),
             ],
           ),
@@ -199,26 +193,19 @@ class _NewsPageState extends State<NewsPage> {
 }
 
 class EventPage extends StatefulWidget {
+  DocumentSnapshot document;
+
+  EventPage(this.document);
+
   @override
   _EventPageState createState() => _EventPageState();
 }
 
 class _EventPageState extends State<EventPage> {
-  String agencyLocation,
-      title,
-      venue,
-      type,
-      agency,
-      location,
-      image = 'assets/events/trash.jpg',
-      description =
-          'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một văn bản chuẩn cho ngành công nghiệp in ấn từ những năm 1500, khi một họa sĩ vô danh ghép nhiều đoạn văn bản với nhau để tạo thành một bản mẫu văn bản. Đoạn văn bản này không những đã tồn tại năm thế kỉ, mà khi được áp dụng vào tin học văn phòng, nội dung của nó vẫn không hề bị thay đổi. Nó đã được phổ biến trong những năm 1960 nhờ việc bán những bản giấy Letraset in những đoạn Lorem Ipsum, và gần đây hơn, được sử dụng trong các ứng dụng dàn trang, như Aldus PageMaker.';
-  List<String> update;
-  int availability;
-  double price, pad = 20;
+  double pad = 20;
   Color primaryColor, accentColor = Colors.orange[600];
   Color liked = Colors.white;
-  DateTime time;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Widget headRow() {
     return Stack(
@@ -228,7 +215,7 @@ class _EventPageState extends State<EventPage> {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(image),
+              image: NetworkImage(widget.document['image']),
               fit: BoxFit.cover,
             ),
             boxShadow: [
@@ -354,6 +341,7 @@ class _EventPageState extends State<EventPage> {
 
   Widget mainInfo(IconData icon, String text) {
     return Container(
+      width: MediaQuery.of(context).size.width,
       alignment: AlignmentDirectional.centerStart,
       padding: EdgeInsets.fromLTRB(pad + 10, 10, pad, 10),
       child: Row(
@@ -367,12 +355,14 @@ class _EventPageState extends State<EventPage> {
               color: accentColor,
             ),
           ),
-          Text(
-            text,
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+          Container(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 18.0,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ),
         ],
@@ -414,7 +404,7 @@ class _EventPageState extends State<EventPage> {
                         alignment: Alignment.centerLeft,
                         margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         child: Text(
-                          "$agency",
+                          widget.document['agency'],
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20.0,
@@ -426,7 +416,7 @@ class _EventPageState extends State<EventPage> {
                         alignment: Alignment.centerLeft,
                         margin: EdgeInsets.fromLTRB(20, 5, 20, 0),
                         child: Text(
-                          "$agencyLocation",
+                          widget.document['agencyLocation'],
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16.0,
@@ -453,17 +443,10 @@ class _EventPageState extends State<EventPage> {
     );
   }
 
-  List<Widget> _updateInfo = [
-    UpdateInfo('Lorem Ipsum', DateTime.now()),
-    UpdateInfo('Lorem Ipsum', DateTime.now()),
-    UpdateInfo('Lorem Ipsum', DateTime.now()),
-    UpdateInfo('Lorem Ipsum', DateTime.now()),
-    UpdateInfo('Lorem Ipsum', DateTime.now()),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -471,91 +454,99 @@ class _EventPageState extends State<EventPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                        (image != null) ? headRow() : noImage(),
-                        SizedBox(
-                          height: 20.0,
+                    (widget.document['image'] != '') ? headRow() : noImage(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(pad, 0, pad, 20),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.document['title'],
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(pad, 0, pad, 20),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "$title",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 32.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      ),
+                    ),
+                    mainInfo(MaterialCommunityIcons.calendar,
+                        widget.document['time']),
+                    mainInfo(MaterialCommunityIcons.map_marker,
+                        widget.document['venue']),
+                    mainInfo(MaterialCommunityIcons.map,
+                        widget.document['location']),
+                    mainInfo(
+                        MaterialCommunityIcons.flag, widget.document['tag']),
+                    mainInfo(MaterialCommunityIcons.office_building,
+                        widget.document['agency']),
+                    mainInfo(MaterialCommunityIcons.ticket_account,
+                        '${widget.document['availability']} chỗ trống'),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(pad, 15, pad, 0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Nội dung",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        mainInfo(MaterialCommunityIcons.calendar, '$time'),
-                        mainInfo(MaterialCommunityIcons.map_marker, '$venue'),
-                        mainInfo(MaterialCommunityIcons.map, '$location'),
-                        mainInfo(MaterialCommunityIcons.flag, '$type'),
-                        mainInfo(
-                            MaterialCommunityIcons.office_building, '$agency'),
-                        mainInfo(MaterialCommunityIcons.ticket_account,
-                            '$availability chỗ trống'),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(pad, 15, pad, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Nội dung",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(pad, 10, pad, 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.document['description'],
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.normal,
                         ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(pad, 10, pad, 10),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "$description",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(pad, 15, pad, 0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Cập nhật",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(pad, 15, pad, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Cập nhật",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      ),
+                    ),
+                    ColumnBuilder(
+                      itemCount: widget.document['update'].length,
+                      itemBuilder: (context, index) => UpdateInfo(
+                        widget.document['update'][index]['text'],
+                        widget.document['update'][index]['textTime'],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(pad, 25, pad, 0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Tổ chức",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ] +
-                      _updateInfo +
-                      [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(pad, 25, pad, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Tổ chức",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 28.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            children: <Widget>[Container()],
-                          ),
-                        ),
-                        agencyDetails(),
-                        SizedBox(
-                          height: 100.0,
-                        ),
-                      ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: <Widget>[Container()],
+                      ),
+                    ),
+                    agencyDetails(),
+                    SizedBox(
+                      height: 100.0,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -586,10 +577,12 @@ class _EventPageState extends State<EventPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Unfinished()),
-                  );
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text(
+                      'Đã đăng kí thành công',
+                    ),
+                    duration: Duration(seconds: 3),
+                  ));
                 },
               ),
             )
@@ -601,8 +594,7 @@ class _EventPageState extends State<EventPage> {
 }
 
 class UpdateInfo extends StatelessWidget {
-  String text;
-  DateTime time;
+  String text, time;
   double pad = 20;
 
   UpdateInfo(this.text, this.time);

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
         accentColor: Colors.green,
-        textTheme: TextTheme(bodyText2: TextStyle(color: Colors.purple)),
+        textTheme: TextTheme(bodyText2: TextStyle(color: Colors.black87)),
       ),
       home: SafeArea(child: Main()),
     );

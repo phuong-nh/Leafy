@@ -1,39 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import './page.dart';
 import '../unfinished.dart';
 
-class ImageCard extends StatelessWidget {
-  String title, tag, agency, image, type;
-  Color tagColor, primaryColor, accentColor, textColor;
-  DateTime time;
-  EdgeInsets margin;
-  double height, radius, width;
+class HighlightCard extends StatelessWidget {
+  DocumentSnapshot document;
+  String type;
+  Color tagColor = Colors.orange,
+      primaryColor = Colors.green,
+      accentColor = Colors.black;
+  EdgeInsets margin = EdgeInsets.all(7.0);
+  double height, radius = 15, width;
   bool shadow;
 
-  ImageCard({
-    this.title,
-    this.tag,
-    this.agency,
-    this.image,
-    this.tagColor,
-    this.primaryColor,
-    this.accentColor,
-    this.time,
-    this.margin,
-    this.radius,
-    this.height,
-    this.width,
-    this.shadow,
-    this.textColor,
-    this.type,
-  });
+  HighlightCard(
+      {this.document, this.type, this.height, this.shadow, this.width});
+
+  Widget imageDisplay() {
+    if (document['image'] != '')
+      return Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(document['image']),
+            fit: BoxFit.cover,
+          ),
+          color: primaryColor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(radius),
+              topRight: Radius.circular(radius),
+              bottomLeft: Radius.circular(radius),
+              bottomRight: Radius.circular(radius)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 0), // changes position of shadow
+            ),
+          ],
+        ),
+      );
+    else
+      return Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(radius),
+              topRight: Radius.circular(radius),
+              bottomLeft: Radius.circular(radius),
+              bottomRight: Radius.circular(radius)),
+        ),
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      child: InkWell(
+        child: imageDisplay(),
+        onTap: () {
+          Navigator.of(context).push(_createRoute(type, document));
+        },
+      ),
+    );
+  }
+}
+
+class ImageCard extends StatelessWidget {
+  DocumentSnapshot document;
+  String type;
+  Color tagColor = Colors.orange,
+      primaryColor = Colors.green,
+      accentColor = Colors.black;
+  EdgeInsets margin = EdgeInsets.all(7.0);
+  double height, radius = 15, width;
+  bool shadow;
+
+  ImageCard({this.document, this.type, this.height, this.shadow, this.width});
 
   Widget tagDisplay() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 3, 10, 3),
       height: 22.0,
       child: Text(
-        "$tag",
+        document['tag'],
         style: TextStyle(
           color: Colors.white,
           fontSize: 14.0,
@@ -56,9 +111,9 @@ class ImageCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
       child: Text(
-        "$time",
+        "${document['time']}",
         style: TextStyle(
-          color: textColor,
+          color: Colors.white,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -71,9 +126,9 @@ class ImageCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
       child: Text(
-        "$agency",
+        document['agency'],
         style: TextStyle(
-          color: textColor,
+          color: Colors.white,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -82,13 +137,13 @@ class ImageCard extends StatelessWidget {
   }
 
   Widget imageDisplay() {
-    if (image != null)
+    if (document['image'] != '')
       return Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image),
+            image: NetworkImage(document['image']),
             fit: BoxFit.cover,
           ),
           color: primaryColor,
@@ -159,25 +214,26 @@ class ImageCard extends StatelessWidget {
               ),
               padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
               child: Column(
-                mainAxisAlignment: ((tag != null)
+                mainAxisAlignment: ((document['tag'] != '')
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.end),
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (tag != null) tagDisplay(),
+                  if (document['tag'] != '') tagDisplay(),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      if (title != null)
+                      if (document['title'] != '')
                         Text(
-                          "$title",
+                          document['title'],
                           style: TextStyle(
-                            color: textColor,
+                            color: Colors.white,
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      if (agency != null) agencyDisplay(),
-                      if (time != null) timeDisplay(),
+                      if (document['agency'] != '') agencyDisplay(),
+                      if (document['time'] != '') timeDisplay(),
                     ],
                   ),
                 ],
@@ -186,7 +242,7 @@ class ImageCard extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.of(context).push(_createRoute(type));
+          Navigator.of(context).push(_createRoute(type, document));
         },
       ),
     );
@@ -194,36 +250,23 @@ class ImageCard extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  String title, tag, agency, image, type;
-  Color tagColor, primaryColor, accentColor, textColor;
-  DateTime time;
-  EdgeInsets margin;
-  double height, radius, width;
+  DocumentSnapshot document;
+  String type;
+  Color tagColor = Colors.orange,
+      primaryColor = Colors.green,
+      accentColor = Colors.white;
+  EdgeInsets margin = EdgeInsets.fromLTRB(20, 7, 20, 7);
+  double height, radius = 15, width;
   bool shadow;
 
-  InfoCard(
-      {this.title,
-      this.tag,
-      this.agency,
-      this.image,
-      this.tagColor,
-      this.primaryColor,
-      this.accentColor,
-      this.time,
-      this.margin,
-      this.radius,
-      this.height,
-      this.width,
-      this.shadow,
-      this.textColor,
-      this.type});
+  InfoCard({this.document, this.type, this.height, this.shadow, this.width});
 
   Widget tagDisplay() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 3, 10, 3),
       height: 22.0,
       child: Text(
-        "$tag",
+        document['tag'],
         style: TextStyle(
           color: Colors.white,
           fontSize: 14.0,
@@ -246,9 +289,9 @@ class InfoCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
       child: Text(
-        "$time",
+        "${document['time']}",
         style: TextStyle(
-          color: textColor,
+          color: Colors.black87,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -261,9 +304,9 @@ class InfoCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
       child: Text(
-        "$agency",
+        document['agency'],
         style: TextStyle(
-          color: textColor,
+          color: Colors.black87,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
@@ -272,13 +315,13 @@ class InfoCard extends StatelessWidget {
   }
 
   Widget imageDisplay() {
-    if (image != null)
+    if (document['image'] != '')
       return Container(
         height: height / 3 * 2,
         width: width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image),
+            image: NetworkImage(document['image']),
             fit: BoxFit.cover,
           ),
           color: primaryColor,
@@ -339,27 +382,28 @@ class InfoCard extends StatelessWidget {
                     ),
                 ],
               ),
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(
-                mainAxisAlignment: ((tag != null)
+                mainAxisAlignment: ((document['tag'] != '')
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.end),
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (tag != null) tagDisplay(),
+                  if (document['tag'] != '') tagDisplay(),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      if (title != null)
+                      if (document['title'] != '')
                         Text(
-                          "$title",
+                          document['title'],
                           style: TextStyle(
-                            color: textColor,
+                            color: Colors.black87,
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      if (agency != null) agencyDisplay(),
-                      if (time != null) timeDisplay(),
+                      if (document['agency'] != '') agencyDisplay(),
+                      if (document['time'] != '') timeDisplay(),
                     ],
                   ),
                 ],
@@ -368,17 +412,17 @@ class InfoCard extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.of(context).push(_createRoute(type));
+          Navigator.of(context).push(_createRoute(type, document));
         },
       ),
     );
   }
 }
 
-Route _createRoute(String type) {
+Route _createRoute(String type, DocumentSnapshot document) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) =>
-        (type == 'Event') ? EventPage() : NewsPage(),
+        (type == 'Event') ? EventPage(document) : NewsPage(document),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(0.0, 1.0);
       var end = Offset.zero;
