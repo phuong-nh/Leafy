@@ -31,16 +31,26 @@ List<ShopItemData> shopItemDatabase = new List();
 int shopItemDatabaseGenerator() {
   shopItemDatabase.clear();
   shopItemDatabase.add(ShopItemData(
-    shopItemName: 'Stone powder',
+    shopItemName: 'Ống hút cỏ',
     shopItemPrice: 69000,
     shopItemImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png'
   ));
   shopItemDatabase.add(ShopItemData(
-      shopItemName: 'Weed',
+      shopItemName: 'Bình nước giữ nhiệt',
       shopItemPrice: 420000,
       shopItemImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png'
   ));
-  return 2;
+  shopItemDatabase.add(ShopItemData(
+      shopItemName: 'Sổ tự xóa',
+      shopItemPrice: 126000,
+      shopItemImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png'
+  ));
+  shopItemDatabase.add(ShopItemData(
+      shopItemName: 'Túi nilon tự phân hủy - bộ 100 cái',
+      shopItemPrice: 37000,
+      shopItemImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png'
+  ));
+  return 4;
 }
 
 ShopItemData getShopItemData(_index) {
