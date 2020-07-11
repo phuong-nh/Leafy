@@ -30,8 +30,7 @@ class QuizAnswerData {
       _answerCardFilterBlendColor = Colors.transparent;
     }
     if (cardMode == 'Selected') {
-      _answerCardBackgroundColor =
-          quizAnswerCorrectness ? Colors.green : Colors.red;
+      _answerCardBackgroundColor = quizAnswerCorrectness ? Colors.green : Colors.red;
     }
     if ((cardMode != 'Unanswered') && (quizAnswerCorrectness)) {
       _answerCardBackgroundColor = Colors.green;
@@ -42,26 +41,16 @@ class QuizAnswerData {
     }
     return Card(
       child: ColorFiltered(
-        colorFilter:
-            ColorFilter.mode(_answerCardFilterBlendColor, BlendMode.color),
+        colorFilter: ColorFilter.mode(_answerCardFilterBlendColor, BlendMode.color),
         child: ListTile(
-          title: Text(
-            quizAnswer,
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          onTap: () => QuizAnsweredNotification(selectedAnswer: quizAnswerID)
-            ..dispatch(context),
+          title: Text(quizAnswer, style: Theme.of(context).textTheme.headline5,),
+          onTap: () => QuizAnsweredNotification(selectedAnswer: quizAnswerID)..dispatch(context),
         ),
       ),
       color: _answerCardBackgroundColor,
       elevation: 8,
-      shadowColor: Colors.black38,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
     );
   }
-
   int getQuizAnswerID() {
     return quizAnswerID;
   }
@@ -79,17 +68,14 @@ class QuizData {
   String getQuizQuestion() {
     return quizQuestion;
   }
-
   String getQuizAdditionalInformation() {
     return quizAdditionalInformation;
   }
-
   List<QuizAnswerData> getQuizAnswers() {
     List<QuizAnswerData> _temp = quizAnswers;
     _temp..shuffle();
     return _temp;
   }
-
   int getQuizAnswerCount() {
     return quizAnswers.length;
   }
@@ -101,66 +87,135 @@ void quizDatabaseGenerator() {
   _quizDatabase.clear();
   int _indexer = 0;
   _quizDatabase.add(QuizData(
-    quizQuestion: 'COVID-?',
-    quizAdditionalInformation: 'It\'s not the Chinese virus',
+    quizQuestion: 'Lượng rác thải nhựa mà một người Việt Nam tiêu thụ trong một năm trung bỉnh là bao nhiêu?',
+    quizAdditionalInformation: 'theo thống kê của Hiệp hội nhựa Việt Nam thì trong khoảng thời gian 1990 – 2015 số lượng tiêu thụ nhựa ở Việt Nam đã tăng lên chóng mặt, từ 3,8 kg/người/năm lên đến 41 kg/người/năm.',
     quizAnswers: <QuizAnswerData>[
       QuizAnswerData(
-        quizAnswer: '17',
+        quizAnswer: '37 kg/người/năm',
         quizAnswerCorrectness: false,
         quizAnswerID: ++_indexer,
       ),
       QuizAnswerData(
-        quizAnswer: '18',
+        quizAnswer: '39 kg/người/năm',
         quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: '41 kg/người/năm',
+        quizAnswerCorrectness: true,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: '43 kg/người/năm',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+    ],
+  ));
+  _indexer = 0;
+  _quizDatabase.add(QuizData(
+    quizQuestion: 'Trong một năm, thế giới tiêu thụ bao nhiêu túi nilon?',
+    quizAdditionalInformation: 'Quá kinh hoàng',
+    quizAnswers: <QuizAnswerData>[
+      QuizAnswerData(
+        quizAnswer: '3000 tỉ',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: '4000 tỉ',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: '5000 tỉ',
+        quizAnswerCorrectness: true,
+        quizAnswerID: ++_indexer,
+      ),
+    ],
+  ));
+  _indexer = 0;
+  _quizDatabase.add(QuizData(
+    quizQuestion: '"Học sinh phải trồng 10 cây xanh nếu muốn tốt nghiệp" là quy định của nước nào?',
+    quizAdditionalInformation: 'Quy định rất hay của nước bạn',
+    quizAnswers: <QuizAnswerData>[
+      QuizAnswerData(
+        quizAnswer: 'Hungary',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Philippines',
+        quizAnswerCorrectness: true,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Indonesia',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Thụy Điển',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Canada',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+    ],
+  ));
+  _indexer = 0;
+  _quizDatabase.add(QuizData(
+    quizQuestion: 'Ai là người đã khởi xướng phong trào trồng 10 triệu cây xanh trên YouTube?',
+    quizAdditionalInformation: 'Và người ta vẫn nói YouTubers chỉ biết gây hại',
+    quizAnswers: <QuizAnswerData>[
+      QuizAnswerData(
+        quizAnswer: 'MrBeast',
+        quizAnswerCorrectness: true,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Logan Paul',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'NTN Vlogs',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: 'Pewdiepie',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+    ],
+  ));
+  _indexer = 0;
+  _quizDatabase.add(QuizData(
+    quizQuestion: 'Tái chế 1 tấn giấy sẽ cứu được bao nhiêu cây gỗ trưởng thành?',
+    quizAdditionalInformation: 'Con số không lớn, nhưng ý nghĩa không nhỏ',
+    quizAnswers: <QuizAnswerData>[
+      QuizAnswerData(
+        quizAnswer: '15',
+        quizAnswerCorrectness: false,
+        quizAnswerID: ++_indexer,
+      ),
+      QuizAnswerData(
+        quizAnswer: '17',
+        quizAnswerCorrectness: true,
         quizAnswerID: ++_indexer,
       ),
       QuizAnswerData(
         quizAnswer: '19',
-        quizAnswerCorrectness: true,
-        quizAnswerID: ++_indexer,
-      ),
-      QuizAnswerData(
-        quizAnswer: '20',
-        quizAnswerCorrectness: false,
-        quizAnswerID: ++_indexer,
-      ),
-    ],
-  ));
-  _indexer = 0;
-  _quizDatabase.add(QuizData(
-    quizQuestion: 'Cover your mouth with?',
-    quizAdditionalInformation: 'Shut up Karen',
-    quizAnswers: <QuizAnswerData>[
-      QuizAnswerData(
-        quizAnswer: 'Clothes',
         quizAnswerCorrectness: false,
         quizAnswerID: ++_indexer,
       ),
       QuizAnswerData(
-        quizAnswer: 'Underwear',
+        quizAnswer: '21',
         quizAnswerCorrectness: false,
-        quizAnswerID: ++_indexer,
-      ),
-      QuizAnswerData(
-        quizAnswer: 'Mask',
-        quizAnswerCorrectness: true,
-        quizAnswerID: ++_indexer,
-      ),
-    ],
-  ));
-  _indexer = 0;
-  _quizDatabase.add(QuizData(
-    quizQuestion: 'Greta Thunberg helped improve the environment',
-    quizAdditionalInformation: 'Politically abused',
-    quizAnswers: <QuizAnswerData>[
-      QuizAnswerData(
-        quizAnswer: 'True',
-        quizAnswerCorrectness: false,
-        quizAnswerID: ++_indexer,
-      ),
-      QuizAnswerData(
-        quizAnswer: 'False',
-        quizAnswerCorrectness: true,
         quizAnswerID: ++_indexer,
       ),
     ],

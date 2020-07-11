@@ -9,8 +9,7 @@ class QuizLoaderPage extends StatefulWidget {
   final QuizData quizData;
   final bool quizAnswered;
   @override
-  _QuizLoaderPageState createState() =>
-      _QuizLoaderPageState(quizData: quizData, quizAnswered: quizAnswered);
+  _QuizLoaderPageState createState() => _QuizLoaderPageState(quizData: quizData, quizAnswered: quizAnswered);
 }
 
 class _QuizLoaderPageState extends State<QuizLoaderPage> {
@@ -33,41 +32,33 @@ class _QuizLoaderPageState extends State<QuizLoaderPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daily quiz'),
+        title: Text('Câu đố'),
         elevation: getQuizPagePadding(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15),
-            bottomRight: Radius.circular(15),
+            bottomLeft: Radius.circular(getQuizPagePadding() / 2),
+            bottomRight: Radius.circular(getQuizPagePadding() / 2),
           ),
         ),
-        backgroundColor: Colors.green,
       ),
       body: Container(
         padding: EdgeInsets.all(getQuizPagePadding()),
         child: Column(
           children: <Widget>[
-            Text(
-              quizData.quizQuestion,
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Text(quizData.quizQuestion, style: Theme.of(context).textTheme.headline4,),
             NotificationListener<QuizAnsweredNotification>(
               child: Expanded(
                 child: ListView.builder(
                   itemCount: quizData.getQuizAnswerCount(),
                   itemBuilder: (BuildContext context, int _index) =>
-                      quizAnswerList[_index]
-                          .getAnswerCard(quizAnswerCardState[_index], context),
+                    quizAnswerList[_index].getAnswerCard(quizAnswerCardState[_index], context),
                 ),
               ),
               onNotification: (notification) {
                 if (!quizAnswered) {
                   quizAnswered = true;
                   for (int _i = 0; _i < quizData.getQuizAnswerCount(); _i++) {
-                    quizAnswerCardState[_i] = (notification.selectedAnswer ==
-                            quizAnswerList[_i].getQuizAnswerID())
-                        ? 'Selected'
-                        : 'Unselected';
+                    quizAnswerCardState[_i] = (notification.selectedAnswer == quizAnswerList[_i].getQuizAnswerID()) ? 'Selected' : 'Unselected';
                   }
                   setState(() {});
                 }
@@ -77,16 +68,13 @@ class _QuizLoaderPageState extends State<QuizLoaderPage> {
             LayoutBuilder(
               builder: (context, constraints) {
                 if (quizAnswered) {
-                  return Text(
-                    quizData.getQuizAdditionalInformation(),
-                    style: Theme.of(context).textTheme.headline5,
-                  );
+                  return Text(quizData.getQuizAdditionalInformation(), style: Theme.of(context).textTheme.headline5,);
                 }
                 return Container();
               },
             ),
             FlatButton(
-              child: Text('Back'),
+              child: Text('Quay lại'),
               onPressed: () {
                 quizAnswered = false;
                 quizAnswerCardState.clear();
