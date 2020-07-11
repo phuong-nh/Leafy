@@ -17,19 +17,10 @@ class RecycleMapCard extends StatelessWidget {
           ),
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => RecycleMapCardNewPage(
-                        cardData: cardData,
-                      )));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => RecycleMapCardNewPage(cardData: cardData,)));
         },
       ),
-      elevation: 8,
-      shadowColor: Colors.black38,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
+      elevation: 16,
     );
   }
 }
@@ -50,29 +41,21 @@ class RecycleMapCardNewPage extends StatelessWidget {
             aspectRatio: 1,
           ),
         ),
-        title: Text(
-          cardData.getTitleString(),
-          style: Theme.of(context).textTheme.headline6,
-        ),
+        title: Text(cardData.getTitleString(), style: Theme.of(context).textTheme.headline6,),
         actions: <Widget>[
           IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () {Navigator.pop(context);},
             icon: Icon(Icons.close),
           ),
-          SizedBox(
-            width: getRecycleMapEdgePadding() / 2,
-          )
+          SizedBox(width: getRecycleMapEdgePadding() / 2,)
         ],
         elevation: getRecycleMapEdgePadding(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15),
-            bottomRight: Radius.circular(15),
+            bottomLeft: Radius.circular(getRecycleMapEdgePadding() / 2),
+            bottomRight: Radius.circular(getRecycleMapEdgePadding() / 2),
           ),
         ),
-        backgroundColor: Colors.green,
       ),
       body: Padding(
         padding: EdgeInsets.all(getRecycleMapEdgePadding()),
@@ -80,10 +63,7 @@ class RecycleMapCardNewPage extends StatelessWidget {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(getRecycleMapEdgePadding()),
-              child: Text(
-                'Where to recycle:\n' + cardData.getTitleString(),
-                style: Theme.of(context).textTheme.headline4,
-              ),
+              child: Text('Nơi tái chế:\n' + cardData.getTitleString(), style: Theme.of(context).textTheme.headline4,),
             ),
             cardData.getPointListDataList(),
           ],
