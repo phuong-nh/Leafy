@@ -62,35 +62,24 @@ class RecycleMapCardData {
   _RecycleMapPointListData cardDataPointList;
   Widget getTitle(BuildContext context) {
     return Container(
-      child: Text(
-        cardTitle,
-        style: Theme.of(context).textTheme.headline5,
-      ),
+      child: Text(cardTitle, style: Theme.of(context).textTheme.headline5,),
       alignment: Alignment.center,
       height: 50,
     );
   }
-
   Widget getImage() {
-    return Expanded(
-      child: Image.asset(
-        cardImageDir,
-        fit: BoxFit.fitHeight,
-      ),
-    );
+    return Expanded(child: Image.asset(cardImageDir,
+      fit: BoxFit.fitHeight,
+    ),);
   }
-
   Widget getUnexpandedImage() {
-    return Image.asset(
-      cardImageDir,
+    return Image.asset(cardImageDir,
       fit: BoxFit.fitHeight,
     );
   }
-
   String getTitleString() {
     return cardTitle;
   }
-
   Widget getPointListDataList() {
     return cardDataPointList._getPointListData();
   }
@@ -100,56 +89,55 @@ List<RecycleMapCardData> recycleMapCardDatabase = new List();
 
 int recycleMapCardDatabaseGenerator() {
   recycleMapCardDatabase.add(RecycleMapCardData(
-    cardTitle: 'Item #1',
+    cardTitle: 'Chai nhựa',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList:
-        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
-        pointName: 'Ngung Bich Tower',
-        pointDescription: 'You can find Kieu here',
+        pointName: 'Unreal Cafe',
+        pointDescription: '28 đường Thất Hiệu, Đà Nẵng',
       ),
       RecycleMapPointData(
-        pointName: 'Wakanda',
-        pointDescription: 'Unlimited Vibranium',
-      ),
-    ]),
-  ));
-  recycleMapCardDatabase.add(RecycleMapCardData(
-    cardTitle: 'Item #2',
-    cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList:
-        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
-      RecycleMapPointData(
-        pointName: 'America',
-        pointDescription: 'Get your guns ready',
+        pointName: 'Xưởng Chốn Ảo',
+        pointDescription: '85 đường Bất Tại, Đà Nẵng',
       ),
     ]),
   ));
   recycleMapCardDatabase.add(RecycleMapCardData(
-    cardTitle: 'Item #3',
+    cardTitle: 'Thủy tinh',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList:
-        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
-        pointName: 'America',
-        pointDescription: 'Get your guns ready',
+        pointName: 'Nhà máy thủy tinh Sơn Tinh',
+        pointDescription: '73 đường Viễn Hướng, Đà Nẵng',
+      ),
+      RecycleMapPointData(
+        pointName: 'Xưởng Chốn Ảo',
+        pointDescription: '85 đường Bất Tại, Đà Nẵng',
       ),
     ]),
   ));
   recycleMapCardDatabase.add(RecycleMapCardData(
-    cardTitle: 'Item #4',
+    cardTitle: 'Giấy',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
-    cardDataPointList:
-        _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
-        pointName: 'America',
-        pointDescription: 'Get your guns ready',
+        pointName: 'Xưởng Chốn Ảo',
+        pointDescription: '85 đường Bất Tại, Đà Nẵng',
+      ),
+    ]),
+  ));
+  recycleMapCardDatabase.add(RecycleMapCardData(
+    cardTitle: 'Lon thiếc',
+    cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
+    cardDataPointList: _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+      RecycleMapPointData(
+        pointName: 'Không gian sáng tạo Đồ Vọc Vạch',
+        pointDescription: '142 đường Thất Hiệu, Đà Nẵng',
       ),
     ]),
   ));
   return 4;
 }
-
 RecycleMapCardData getRecycleMapCardData(int _index) {
   return recycleMapCardDatabase[_index];
 }
