@@ -102,7 +102,7 @@ void quizDatabaseGenerator() {
   int _indexer = 0;
   _quizDatabase.add(QuizData(
     quizQuestion: 'COVID-?',
-    quizAdditionalInformation: 'It\'s not the Chinese virus',
+    quizAdditionalInformation: 'Không phải virus Trung Quốc',
     quizAnswers: <QuizAnswerData>[
       QuizAnswerData(
         quizAnswer: '17',
@@ -128,21 +128,21 @@ void quizDatabaseGenerator() {
   ));
   _indexer = 0;
   _quizDatabase.add(QuizData(
-    quizQuestion: 'Cover your mouth with?',
-    quizAdditionalInformation: 'Shut up Karen',
+    quizQuestion: 'Che mũi và miệng bằng gì?',
+    quizAdditionalInformation: 'Bảo vệ bản thân và người khác',
     quizAnswers: <QuizAnswerData>[
       QuizAnswerData(
-        quizAnswer: 'Clothes',
+        quizAnswer: 'Quần áo ',
         quizAnswerCorrectness: false,
         quizAnswerID: ++_indexer,
       ),
       QuizAnswerData(
-        quizAnswer: 'Underwear',
+        quizAnswer: 'Quần áo bên trong ',
         quizAnswerCorrectness: false,
         quizAnswerID: ++_indexer,
       ),
       QuizAnswerData(
-        quizAnswer: 'Mask',
+        quizAnswer: 'Khẩu trang',
         quizAnswerCorrectness: true,
         quizAnswerID: ++_indexer,
       ),
@@ -150,16 +150,16 @@ void quizDatabaseGenerator() {
   ));
   _indexer = 0;
   _quizDatabase.add(QuizData(
-    quizQuestion: 'Greta Thunberg helped improve the environment',
-    quizAdditionalInformation: 'Politically abused',
+    quizQuestion: 'Greta Thunberg đã giúp đỡ bảo vệ môi trường',
+    quizAdditionalInformation: 'Con bài chính trị bị lợi dụng',
     quizAnswers: <QuizAnswerData>[
       QuizAnswerData(
-        quizAnswer: 'True',
+        quizAnswer: 'Đúng',
         quizAnswerCorrectness: false,
         quizAnswerID: ++_indexer,
       ),
       QuizAnswerData(
-        quizAnswer: 'False',
+        quizAnswer: 'Sai',
         quizAnswerCorrectness: true,
         quizAnswerID: ++_indexer,
       ),

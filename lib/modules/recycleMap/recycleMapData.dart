@@ -100,17 +100,17 @@ List<RecycleMapCardData> recycleMapCardDatabase = new List();
 
 int recycleMapCardDatabaseGenerator() {
   recycleMapCardDatabase.add(RecycleMapCardData(
-    cardTitle: 'Item #1',
+    cardTitle: 'Chai nhựa',
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
     cardDataPointList:
         _RecycleMapPointListData(pointList: <RecycleMapPointData>[
       RecycleMapPointData(
-        pointName: 'Ngung Bich Tower',
-        pointDescription: 'You can find Kieu here',
+        pointName: 'Sông Hàn',
+        pointDescription: 'Xin đừng xuống tắm',
       ),
       RecycleMapPointData(
-        pointName: 'Wakanda',
-        pointDescription: 'Unlimited Vibranium',
+        pointName: 'Thùng rác',
+        pointDescription: 'Nhà của học sinh sau họp phụ huynh',
       ),
     ]),
   ));
@@ -119,6 +119,14 @@ int recycleMapCardDatabaseGenerator() {
     cardImageDir: 'lib/assets/recycleMapAssets/icon_placeholder.png',
     cardDataPointList:
         _RecycleMapPointListData(pointList: <RecycleMapPointData>[
+      RecycleMapPointData(
+        pointName: 'Lầu Ngưng Bích',
+        pointDescription: 'Kiều đã đi rồi...',
+      ),
+      RecycleMapPointData(
+        pointName: 'Wakanda',
+        pointDescription: 'Unlimited vibranium',
+      ),
       RecycleMapPointData(
         pointName: 'America',
         pointDescription: 'Get your guns ready',
